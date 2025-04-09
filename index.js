@@ -11,10 +11,10 @@ var options = {
 
 const PORT = process.env.PORT || 8000;
 
-https.createServer(options, app).listen(PORT,() => {
-    console.log('server started at ', PORT);
-  });
+// https.createServer(options, app).listen(PORT,() => {
+//     console.log('server started at ', PORT);
+//   });
 
-// app.listen(PORT, () => {
-//   console.log('server started at ', PORT);
-// });
+app.listen(PORT, () => {
+  console.log('server started at ', PORT);
+});

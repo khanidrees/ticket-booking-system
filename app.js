@@ -93,7 +93,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'UP' });
+});
 
 app.use('/api/v1', bookingRouter);
 

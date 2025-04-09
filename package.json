@@ -1,0 +1,32 @@
+{
+  "name": "booking-system",
+  "version": "1.0.0",
+  "description": "ticket booking system ensuring scalability , reliability, secuirity, etc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "idrees khan",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "1.20.1",
+    "cors": "2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "4.18.2",
+    "express-validator": "^7.0.1",
+    "helmet": "6.0.1",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "6.8.0",
+    "node-cron": "3.0.3",
+    "stripe": "18.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.43.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.22"
+  }
+}

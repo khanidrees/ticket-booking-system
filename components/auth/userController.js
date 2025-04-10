@@ -17,7 +17,7 @@ const postUser = asyncHandler(async (req, res, next) => {
   } = req.body;
   
   const response = await userService
-    .postUser(userID, name, email, mobileNumber, password);
+    .postUser(userID, name, email, password);
   return res.json(response);
   
 });

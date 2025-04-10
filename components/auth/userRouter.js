@@ -10,10 +10,19 @@ const { isAuthorized } = require('./auth');
 router.post(
   '/register',
   [
-    // TODO : add userID validation for duplication
+    body('name', 'Enter 5  atleast chars')
+      .trim()
+      .isLength({ min: 5, max: 20 }),
     body('userID', 'Enter atleast 6 characters')
       .trim()
       .isLength({ min: 6, max: 15 })
+      .custom(async (value)=>{
+        const user =  await User.findOne({userID: value});
+        if(user){
+          return Promise.reject('Please enter another userID');
+        } 
+        return true
+      })
       ,
     body('email')
       .isEmail()

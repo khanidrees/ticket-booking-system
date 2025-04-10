@@ -126,11 +126,9 @@ const cancelBooking = async ( bookingId, userId )=>{
             console.log(`Refund initiated for Payment Intent: ${booking.stripe_payment_id}, Status: ${refund.status}`);
         } catch (stripeErr) {
             console.error(`Stripe Refund Error: ${stripeErr.message}`);
-            // Consider whether to proceed with cancellation even if refund fails
-            // In some cases, you might want to log the error and continue
-            // In other cases, you might want to abort the cancellation
-            await session.abortTransaction();
-            session.endSession();
+            
+            // await session.abortTransaction();
+            // session.endSession();
             throw new ApiError(500, 'Error processing refund. Cancellation aborted.');
         }
     }
@@ -138,7 +136,7 @@ const cancelBooking = async ( bookingId, userId )=>{
       await Showtime.findByIdAndUpdate(booking.showtime_id, { $inc: { available_seats: booking.number_of_tickets } }, { session });
 
       booking.payment_status = PAYMENT_STATUSES.canceled;
-      booking.save({session});
+      await booking.save({session});
 
       await session.commitTransaction();
       session.endSession();
@@ -168,7 +166,7 @@ const fulfillOrder = async (paymentIntent)=>{
 
 const updateBookingPaymentStatus = async (paymentIntentId, status)=>{
   const updatedBooking = await Booking.findOneAndUpdate({
-    stripe_payment_id: paymentIntent.Id,
+    stripe_payment_id: paymentIntentId,
   },
   {
     $set : {

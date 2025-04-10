@@ -11,7 +11,7 @@ cron.schedule('* * * * *', async () => {
 
     try {
         // Find pending bookings older than 10 minutes
-        const tenMinutesAgo = new Date(Date.now() -   60 * 1000);
+        const tenMinutesAgo = new Date(Date.now() -  10 * 60 * 1000);
         const pendingBookings = await Booking.find({
             payment_status: 'pending',
             payment_intent_created_at: { $lte: tenMinutesAgo }

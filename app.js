@@ -4,6 +4,15 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const https = require('https');
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again after 15 minutes",
+  standardHeaders: true, // Return rate limit info in the 'RateLimit-*' headers
+  legacyHeaders: false, // Disable `X-RateLimit-*` headers
+});
 
 const { connectToDatabase } = require('./db/connect');
 
@@ -93,7 +102,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/health', (req, res) => {
+app.use('/api',limiter);
+
+app.get('/api/v1/health', (req, res) => {
   res.status(200).json({ status: 'UP' });
 });
 
@@ -103,7 +114,9 @@ app.use('/api/v1/users', userRouter);
 
 app.use('/api/v1', movieRouter);
 
-
+app.use((req, res, next) => {
+  res.status(404).send("Sorry can't find that!")
+})
 
 app.use((err, req, res, next) => {
   let error = err;

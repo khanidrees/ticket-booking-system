@@ -53,10 +53,10 @@ router.post(
      })
      .withMessage('dates must be have (duration + 15min) difference')
      ,
-     body('total_seats')
-     .isNumeric(),
-     body('price')
-     .isNumeric()
+    body('total_seats')
+      .isNumeric(),
+    body('price')
+      .isFloat({ min: 0.01 }).withMessage('Only numbers greater than zero allowed')
   ],
   movieController.createMovie
   ,

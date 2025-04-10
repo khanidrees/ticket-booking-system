@@ -66,7 +66,7 @@ DB_CONNECT=mongodb://localhost:27017/movie-booking
 JWT_PRIVATE_KEY=your-secret-jwt-key
 STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
 STRIPE_WEBHOOK_SECRET=whsec_your_stripe_webhook_secret
-PORT=3000
+PORT=433
 ```
 
 Explanation:

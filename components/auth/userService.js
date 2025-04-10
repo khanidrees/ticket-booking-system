@@ -12,7 +12,7 @@ const postUser = async (userID, name, email, password) => {
   const hashedPassword = await bcrypt.hash(password, 12);
   if (hashedPassword) {
     // console.log('User', User);
-    // console.log(userID, name, email, mobileNumber, password);
+    // console.log(userID, name, email, password);
     const user = await User.create({
       userID, name, email, password: hashedPassword,
     });

@@ -5,6 +5,7 @@ const cors = require('cors');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const https = require('https');
 const rateLimit = require('express-rate-limit');
+const cron = require('node-cron');
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -30,6 +31,9 @@ const app = express();
 
 connectToDatabase();
 
+if(process.env.NODE_ENV === 'production'){
+  require('./cron-jobs/ping');
+}
 
 
 // for security

@@ -31,9 +31,9 @@ const app = express();
 
 connectToDatabase();
 
-if(process.env.NODE_ENV === 'production'){
-  require('./cron-jobs/ping');
-}
+// if(process.env.NODE_ENV === 'production'){
+//   require('./cron-jobs/ping');
+// }
 
 
 // for security
